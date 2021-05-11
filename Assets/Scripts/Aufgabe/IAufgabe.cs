@@ -7,13 +7,15 @@ public interface IAufgabe<O, A> {
 
     string GetFrage();
 
-    string[] GetTags();
+    void SetFrage(string frage);
 
     void SetAntwort(A antwort, int richtig);
 
-    void SetFrage(string frage);
+    void RemoveAntwort(A antwort);
 
     int GetKorrektheitsGrad();
+
+    string[] GetTags();
 
     void SetTags(string[] tags);
 
