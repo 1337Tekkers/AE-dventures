@@ -14,4 +14,8 @@ public interface IAufgabe<O, A> {
     void SetFrage(string frage);
 
     int GetKorrektheitsGrad();
+
+    void SetTags(string[] tags);
+
+    void SetSchwierigkeitsgrad(ESchwierigkeitsgrad schwierigkeitsgrad);
 }
