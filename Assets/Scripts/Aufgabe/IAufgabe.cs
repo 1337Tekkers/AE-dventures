@@ -3,7 +3,7 @@ public interface IAufgabe<O, A> {
 
     int Validiere(A antwort);
 
-    O GetAntowrtOptionen();
+    O GetAntwortOptionen();
 
     string GetFrage();
 
