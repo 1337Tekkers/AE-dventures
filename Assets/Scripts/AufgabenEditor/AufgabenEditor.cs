@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AufgabenEditor : MonoBehaviour
 {
@@ -10,15 +11,31 @@ public class AufgabenEditor : MonoBehaviour
     void Start()
     {
         TestKlasse testKlasse = new TestKlasse();
-        testKlasse.text = "Test";
-        testKlasse.richtig = true;
-        testKlasse.antworten = new string[] {"Antwort 1", "Antwort 2", "Antwort 3"};
+        testKlasse.SetFrage("Frage 1");
+        testKlasse.SetSchwierigkeitsgrad(ESchwierigkeitsgrad.MITTEL);
+        testKlasse.SetTags(new string[] {"Test"});
+        testKlasse.AddAntwort("Antwort 1", 0);
+        testKlasse.AddAntwort("Antwort 2", 0);
+        testKlasse.AddAntwort("Antwort 3", 0);
+        testKlasse.AddAntwort("Antwort 4", 1);
 
+        Debug.Log(testKlasse.GetFrage());
         AufgabeSpeichern(testKlasse);
+        Debug.Log(Application.persistentDataPath);
 
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + 1 + ".KWESTION";
-        TestKlasse klasseFromJSON = JsonUtility.FromJson<TestKlasse>(File.ReadAllText(jsonSavePath));
-        Debug.Log(klasseFromJSON.text);
+        TestKlasse klasseFromJSON = JsonConvert.DeserializeObject<TestKlasse>(File.ReadAllText(jsonSavePath));
+        Debug.Log(klasseFromJSON.GetFrage());
+        foreach (var tag in klasseFromJSON.GetTags())
+        {
+            Debug.Log(tag);
+        }
+
+        foreach (var antwort in klasseFromJSON.GetAntwortOptionen())
+        {
+            Debug.Log(antwort);
+        }
+       
     }
 
     // Update is called once per frame
@@ -29,7 +46,8 @@ public class AufgabenEditor : MonoBehaviour
 
     public void AufgabeSpeichern(TestKlasse testKlasse)
     {
-        string json = JsonUtility.ToJson(testKlasse);
+        
+        string json = JsonConvert.SerializeObject(testKlasse);
         Debug.Log(json);
 
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + 1 + ".KWESTION";
