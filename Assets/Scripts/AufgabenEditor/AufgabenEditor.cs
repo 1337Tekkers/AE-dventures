@@ -20,11 +20,14 @@ public class AufgabenEditor : MonoBehaviour
         testKlasse.AddAntwort("Antwort 4", 1);
 
         Debug.Log(testKlasse.GetFrage());
+
         AufgabeSpeichern(testKlasse);
+        
         Debug.Log(Application.persistentDataPath);
 
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + 1 + ".KWESTION";
-        TestKlasse klasseFromJSON = JsonConvert.DeserializeObject<TestKlasse>(File.ReadAllText(jsonSavePath));
+        TestKlasse klasseFromJSON = AufgabeLaden(jsonSavePath);
+
         Debug.Log(klasseFromJSON.GetFrage());
         foreach (var tag in klasseFromJSON.GetTags())
         {
@@ -52,5 +55,9 @@ public class AufgabenEditor : MonoBehaviour
 
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + 1 + ".KWESTION";
         File.WriteAllText(jsonSavePath, json);
+    }
+
+    public TestKlasse AufgabeLaden(string path) {
+        return JsonConvert.DeserializeObject<TestKlasse>(File.ReadAllText(path));
     }
 }
