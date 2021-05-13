@@ -7,4 +7,5 @@ public class TestKlasse
 {
     public string text;
     public bool richtig;
+    public string[] antworten;
 }
