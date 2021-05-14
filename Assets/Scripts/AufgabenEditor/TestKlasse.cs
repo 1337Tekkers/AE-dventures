@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-public class TestKlasse : IAufgabe<string[], string>
+public class QuizAufgabe : IAufgabe<string[], string>
 {
     // Parameter
     [JsonProperty]
