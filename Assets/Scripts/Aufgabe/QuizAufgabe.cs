@@ -2,15 +2,28 @@ using System.Collections.Generic;
 
 public class QuizAufgabe : IAufgabe<string[], string>
 {
+    public Frage frage = new Frage();
+    public class Frage : MemoryObservable<string>
+    {
+        public void WurdeGeaendert(string neueFrage)
+        {
+            this.NotifyAll(neueFrage);
+        }
+
+        public string GetValue()
+        {
+            return this.lastValue;
+        }
+    }
+
     // Parameter
     private readonly Dictionary<string, bool> antworten = new Dictionary<string, bool>();
-    private string frage;
     private ESchwierigkeitsgrad schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
     private string[] tags;
 
     // Spiel
     private int korrektheitsGrad = 0;
-    private string selectedAnwort;
+    private string selectedAntwort;
 
 
     public string[] GetAntwortOptionen()
@@ -22,7 +35,7 @@ public class QuizAufgabe : IAufgabe<string[], string>
 
     public string GetFrage()
     {
-        return frage;
+        return frage.GetValue();
     }
 
     public int GetKorrektheitsGrad()
@@ -56,7 +69,7 @@ public class QuizAufgabe : IAufgabe<string[], string>
 
     public void SetFrage(string frage)
     {
-        if (StringValidator.Validate(frage)) this.frage = frage;
+        if (StringValidator.Validate(frage)) this.frage.WurdeGeaendert(frage);
     }
 
     public void SetSchwierigkeitsgrad(ESchwierigkeitsgrad schwierigkeitsgrad)
@@ -72,7 +85,7 @@ public class QuizAufgabe : IAufgabe<string[], string>
 
     public int Validiere(string antwort)
     {
-        this.selectedAnwort = antwort;
+        this.selectedAntwort = antwort;
         if (this.antworten[antwort])
         {
             this.korrektheitsGrad = 100;
@@ -88,5 +101,10 @@ public class QuizAufgabe : IAufgabe<string[], string>
     {
         if (!StringValidator.Validate(antwort)) return;
         antworten.Remove(antwort);
+    }
+
+    public void SubscribeZuFrage(IObserver<string> subscriber)
+    {
+        frage.Subscribe(subscriber);
     }
 }
