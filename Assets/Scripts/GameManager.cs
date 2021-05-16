@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public  FrageGUIManager FrageGUIManager;
+    public  QuizGUIManager QuizGUIManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +21,6 @@ public class GameManager : MonoBehaviour
     {
         QuizAufgabe neueAufgabe = new QuizAufgabe();
         neueAufgabe.SetFrage("Wie heiﬂt du?");
-        FrageGUIManager.ZeigeNeueFrage(neueAufgabe);
+        QuizGUIManager.ZeigeNeueFrage(neueAufgabe);
     }
 }

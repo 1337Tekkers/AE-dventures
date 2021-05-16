@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class QuizAufgabe : IAufgabe<string[], string>
 {
-    public Frage frage = new Frage();
+    private Frage frage = new Frage();
     public class Frage : MemoryObservable<string>
     {
         public void WurdeGeaendert(string neueFrage)
@@ -28,6 +28,7 @@ public class QuizAufgabe : IAufgabe<string[], string>
 
     public string[] GetAntwortOptionen()
     {
+        // Würde ich gerne entfernen
         string[] answers = new string[antworten.Count];
         antworten.Keys.CopyTo(answers, 0);
         return answers;
@@ -35,6 +36,7 @@ public class QuizAufgabe : IAufgabe<string[], string>
 
     public string GetFrage()
     {
+        // Würde ich gerne entfernen
         return frage.GetValue();
     }
 
@@ -45,11 +47,13 @@ public class QuizAufgabe : IAufgabe<string[], string>
 
     public ESchwierigkeitsgrad GetSchwierigkeitsgrad()
     {
+        // Würde ich gerne entfernen
         return this.schwierigkeitsgrad;
     }
 
     public string[] GetTags()
     {
+        // Würde ich gerne entfernen
         return tags;
     }
 
