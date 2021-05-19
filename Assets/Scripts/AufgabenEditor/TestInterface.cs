@@ -10,7 +10,7 @@ public interface IAufgabe<O, A>
 
     void SetFrage(string frage);
 
-    void AddAntwort(A antwort, int richtig);
+    void AddAntwort(A antwort, bool richtig);
 
     void RemoveAntwort(A antwort);
 

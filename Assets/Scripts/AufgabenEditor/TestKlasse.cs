@@ -48,18 +48,19 @@ public class QuizAufgabe : IAufgabe<string[], string>
         return tags;
     }
 
-    public void AddAntwort(string antwort, int richtig)
+    public void AddAntwort(string antwort, bool richtig)
     {
-        bool richtigAsBool;
-        if (richtig <= 0)
-        {
-            richtigAsBool = false;
-        }
-        else
-        {
-            richtigAsBool = true;
-        }
-        this.antworten.Add(antwort, richtigAsBool);
+        // Warum nicht direkt bool
+        // bool richtigAsBool;
+        // if (richtig <= 0)
+        // {
+        //     richtigAsBool = false;
+        // }
+        // else
+        // {
+        //     richtigAsBool = true;
+        // }
+        this.antworten.Add(antwort, richtig);
     }
 
     public void SetFrage(string frage)
