@@ -6,25 +6,41 @@ using UnityEngine.UI;
 
 public class QuizGUIManager : MonoBehaviour
 {
-    public Text frage;
-    public Text[] antwort = new Text[5];
+    public Text frageText;
+    public Text[] antwortText = new Text[5];
 
-    private FrageUpdater FrageUpdaterInstance;
+    private FrageGUIUpdater frageGUIUpdater;
+    private AntwortGUIUpdater antwortGUIUpdater;
 
     private void Start()
     {
-         FrageUpdaterInstance = new FrageUpdater(this);
+        frageGUIUpdater = new FrageGUIUpdater(this);
+        antwortGUIUpdater = new AntwortGUIUpdater(this);
     }
 
-    private void SetFrage(string frage) => this.frage.text = frage;
-    private void SetAntwort(string antwort, int id) => this.antwort[id].text = antwort;
-    public void ZeigeNeueFrage(QuizAufgabe quizAufgabe) => FrageUpdaterInstance.ZeigeNeueFrage(quizAufgabe);
+    private void SetFrage(string frage) => this.frageText.text = frage;
+    private void SetAntwort(string antwort, int id) => this.antwortText[id].text = antwort;
+    public void ZeigeNeueAufgabe(QuizAufgabe quizAufgabe) {
+        frageGUIUpdater.ZeigeNeueFrage(quizAufgabe);
+        antwortGUIUpdater.ZeigeNeueAntworten(quizAufgabe);
+    }
 
-    private class FrageUpdater: IObserver<string>
+    private void SetAntwort(Dictionary<int, QuizAufgabe.Antwort> antwortMap)
+    {
+        foreach (KeyValuePair<int, QuizAufgabe.Antwort> entry in antwortMap)
+        {
+            Debug.Log(entry.Key);
+            Debug.Log(entry.Value.ToString());
+            Debug.Log("-----------");
+            antwortText[entry.Key].text = entry.Value.ToString();
+        }
+    }
+
+    private class FrageGUIUpdater : IObserver<string>
     {
         QuizGUIManager manager;
 
-        public FrageUpdater(QuizGUIManager manager)
+        public FrageGUIUpdater(QuizGUIManager manager)
         {
             this.manager = manager;
         }
@@ -34,6 +50,23 @@ public class QuizGUIManager : MonoBehaviour
         internal void ZeigeNeueFrage(QuizAufgabe neueAufgabe)
         {
             neueAufgabe.SubscribeZuFrage(this);
+        }
+    }
+
+    private class AntwortGUIUpdater : IObserver<Dictionary<int, QuizAufgabe.Antwort>>
+    {
+        QuizGUIManager manager;
+
+        public AntwortGUIUpdater(QuizGUIManager manager)
+        {
+            this.manager = manager;
+        }
+
+        public void Notify(Dictionary<int, QuizAufgabe.Antwort> antwortMap) => manager.SetAntwort(antwortMap);
+
+        internal void ZeigeNeueAntworten(QuizAufgabe neueAufgabe)
+        {
+            neueAufgabe.SubscribeZuAntworten(this);
         }
     }
 }

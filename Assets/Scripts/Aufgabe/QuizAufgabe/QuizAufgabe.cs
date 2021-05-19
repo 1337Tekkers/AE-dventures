@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 public class QuizAufgabe : IAufgabe<string[], string>
 {
-    private Frage frage = new Frage();
+    private readonly Frage frage = new Frage();
     public class Frage : MemoryObservable<string>
     {
         public void WurdeGeaendert(string neueFrage)
@@ -16,8 +17,78 @@ public class QuizAufgabe : IAufgabe<string[], string>
         }
     }
 
+    public void SetFrage(string frage)
+    {
+        if (StringValidator.Validate(frage)) this.frage.WurdeGeaendert(frage);
+    }
+
+    public void SubscribeZuFrage(IObserver<string> subscriber)
+    {
+        frage.Subscribe(subscriber);
+    }
+
+    private readonly Antworten antworten = new Antworten();
+    public class Antworten : MemoryObservable<Dictionary<int, Antwort>>
+    {
+        private readonly Dictionary<int, Antwort> myAntworten = new Dictionary<int, Antwort>();
+
+        public void SetAntwort(int id, Antwort antwort)
+        {
+            myAntworten[id] = antwort;
+            NotifyAll(myAntworten);
+        }
+
+        public void RemoveAntwort(int id)
+        {
+            myAntworten.Remove(id);
+            NotifyAll(myAntworten);
+        }
+
+        public int Count()
+        {
+            return myAntworten.Count;
+        }
+    }
+
+    public void SubscribeZuAntworten(IObserver<Dictionary<int, Antwort>> subscriber)
+    {
+        antworten.Subscribe(subscriber);
+    }
+
+    public class Antwort
+    {
+        readonly bool correct;
+        readonly String answer;
+
+        public Antwort(bool correct, String answer)
+        {
+            this.correct = correct;
+            this.answer = answer;
+        }
+
+        public bool IsCorrect()
+        {
+            return correct;
+        }
+
+        override public String ToString()
+        {
+            return answer;
+        }
+    }
+
+    public void AddAntwort(Antwort antwort)
+    {
+        this.antworten.SetAntwort(antworten.Count(), antwort);
+    }
+
+    public void SetAntwort(int id, Antwort antwort)
+    {
+        this.antworten.SetAntwort(id, antwort);
+    }
+
     // Parameter
-    private readonly Dictionary<string, bool> antworten = new Dictionary<string, bool>();
+    // private readonly Dictionary<string, bool> antworten = new Dictionary<string, bool>();
     private ESchwierigkeitsgrad schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
     private string[] tags;
 
@@ -29,9 +100,10 @@ public class QuizAufgabe : IAufgabe<string[], string>
     public string[] GetAntwortOptionen()
     {
         // Würde ich gerne entfernen
-        string[] answers = new string[antworten.Count];
-        antworten.Keys.CopyTo(answers, 0);
-        return answers;
+        // string[] answers = new string[antworten.Count];
+        // antworten.Keys.CopyTo(answers, 0);
+        // return answers;
+        return null;
     }
 
     public string GetFrage()
@@ -68,12 +140,7 @@ public class QuizAufgabe : IAufgabe<string[], string>
         {
             richtigAsBool = true;
         }
-        this.antworten.Add(antwort, richtigAsBool);
-    }
-
-    public void SetFrage(string frage)
-    {
-        if (StringValidator.Validate(frage)) this.frage.WurdeGeaendert(frage);
+        // this.antworten.Add(antwort, richtigAsBool);
     }
 
     public void SetSchwierigkeitsgrad(ESchwierigkeitsgrad schwierigkeitsgrad)
@@ -90,25 +157,21 @@ public class QuizAufgabe : IAufgabe<string[], string>
     public int Validiere(string antwort)
     {
         this.selectedAntwort = antwort;
-        if (this.antworten[antwort])
-        {
-            this.korrektheitsGrad = 100;
-        }
-        else
-        {
-            korrektheitsGrad = 0;
-        }
-        return this.GetKorrektheitsGrad();
+        // if (this.antworten[antwort])
+        //{
+        //    this.korrektheitsGrad = 100;
+        //}
+        //else
+        //{
+        //    korrektheitsGrad = 0;
+        //}
+        // return this.GetKorrektheitsGrad();
+        return -1;
     }
 
     public void RemoveAntwort(string antwort)
     {
-        if (!StringValidator.Validate(antwort)) return;
-        antworten.Remove(antwort);
-    }
-
-    public void SubscribeZuFrage(IObserver<string> subscriber)
-    {
-        frage.Subscribe(subscriber);
+        // if (!StringValidator.Validate(antwort)) return;
+        // antworten.Remove(antwort);
     }
 }

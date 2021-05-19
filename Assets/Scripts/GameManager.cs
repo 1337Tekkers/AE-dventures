@@ -8,19 +8,27 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StelleBeispielQuizAufgabe();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown("space"))
+        {
+            StelleBeispielQuizAufgabe();
+        }
     }
 
     void StelleBeispielQuizAufgabe()
     {
         QuizAufgabe neueAufgabe = new QuizAufgabe();
         neueAufgabe.SetFrage("Wie heiﬂt du?");
-        QuizGUIManager.ZeigeNeueFrage(neueAufgabe);
+        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Hans"));
+        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Silke"));
+        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Peter"));
+        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Vladimir"));
+        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(true, "Gaia"));
+        QuizGUIManager.ZeigeNeueAufgabe(neueAufgabe);
     }
 }
