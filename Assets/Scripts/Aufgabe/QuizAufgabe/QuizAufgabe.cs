@@ -1,33 +1,20 @@
 using System;
 using System.Collections.Generic;
 
-public class QuizAufgabe : IAufgabe<string[], string>
+public class QuizAufgabe
 {
-    private readonly Frage frage = new Frage();
+    public readonly Frage frage = new Frage();
     public class Frage : MemoryObservable<string>
     {
-        public void WurdeGeaendert(string neueFrage)
+        public void Set(string neueFrage)
         {
-            this.NotifyAll(neueFrage);
-        }
-
-        public string GetValue()
-        {
-            return this.lastValue;
+            if (StringValidator.Validate(neueFrage)) {
+                this.NotifyAll(neueFrage);
+            }
         }
     }
 
-    public void SetFrage(string frage)
-    {
-        if (StringValidator.Validate(frage)) this.frage.WurdeGeaendert(frage);
-    }
-
-    public void SubscribeZuFrage(IObserver<string> subscriber)
-    {
-        frage.Subscribe(subscriber);
-    }
-
-    private readonly Antworten antworten = new Antworten();
+    public readonly Antworten antworten = new Antworten();
     public class Antworten : MemoryObservable<Dictionary<int, Antwort>>
     {
         private readonly Dictionary<int, Antwort> myAntworten = new Dictionary<int, Antwort>();
@@ -35,6 +22,12 @@ public class QuizAufgabe : IAufgabe<string[], string>
         public void SetAntwort(int id, Antwort antwort)
         {
             myAntworten[id] = antwort;
+            NotifyAll(myAntworten);
+        }
+
+        public void AddAntwort(Antwort antwort)
+        {
+            myAntworten[Count()] = antwort;
             NotifyAll(myAntworten);
         }
 
@@ -50,15 +43,10 @@ public class QuizAufgabe : IAufgabe<string[], string>
         }
     }
 
-    public void SubscribeZuAntworten(IObserver<Dictionary<int, Antwort>> subscriber)
-    {
-        antworten.Subscribe(subscriber);
-    }
-
     public class Antwort
     {
-        readonly bool correct;
-        readonly String answer;
+        private readonly bool correct;
+        private readonly String answer;
 
         public Antwort(bool correct, String answer)
         {
@@ -77,101 +65,26 @@ public class QuizAufgabe : IAufgabe<string[], string>
         }
     }
 
-    public void AddAntwort(Antwort antwort)
+    public readonly Schwierigkeitsgrad schwierigkeitsgrad = new Schwierigkeitsgrad();
+    public class Schwierigkeitsgrad : MemoryObservable<ESchwierigkeitsgrad>
     {
-        this.antworten.SetAntwort(antworten.Count(), antwort);
-    }
-
-    public void SetAntwort(int id, Antwort antwort)
-    {
-        this.antworten.SetAntwort(id, antwort);
-    }
-
-    // Parameter
-    // private readonly Dictionary<string, bool> antworten = new Dictionary<string, bool>();
-    private ESchwierigkeitsgrad schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
-    private string[] tags;
-
-    // Spiel
-    private int korrektheitsGrad = 0;
-    private string selectedAntwort;
-
-
-    public string[] GetAntwortOptionen()
-    {
-        // Würde ich gerne entfernen
-        // string[] answers = new string[antworten.Count];
-        // antworten.Keys.CopyTo(answers, 0);
-        // return answers;
-        return null;
-    }
-
-    public string GetFrage()
-    {
-        // Würde ich gerne entfernen
-        return frage.GetValue();
-    }
-
-    public int GetKorrektheitsGrad()
-    {
-        return korrektheitsGrad;
-    }
-
-    public ESchwierigkeitsgrad GetSchwierigkeitsgrad()
-    {
-        // Würde ich gerne entfernen
-        return this.schwierigkeitsgrad;
-    }
-
-    public string[] GetTags()
-    {
-        // Würde ich gerne entfernen
-        return tags;
-    }
-
-    public void AddAntwort(string antwort, int richtig)
-    {
-        bool richtigAsBool;
-        if (richtig <= 0)
+        public void Set(ESchwierigkeitsgrad schwierigkeitsgrad)
         {
-            richtigAsBool = false;
+            NotifyAll(schwierigkeitsgrad);
         }
-        else
+    }
+
+    public readonly Tag tag = new Tag();
+    public class Tag : MemoryObservable<string>
+    {
+        public void Set(string tag)
         {
-            richtigAsBool = true;
+            NotifyAll(tag);
         }
-        // this.antworten.Add(antwort, richtigAsBool);
-    }
-
-    public void SetSchwierigkeitsgrad(ESchwierigkeitsgrad schwierigkeitsgrad)
-    {
-        this.schwierigkeitsgrad = schwierigkeitsgrad;
-    }
-
-    public void SetTags(string[] tags)
-    {
-        bool areValid = TagValidator.Validate(tags);
-        if (areValid) this.tags = tags;
     }
 
     public int Validiere(string antwort)
     {
-        this.selectedAntwort = antwort;
-        // if (this.antworten[antwort])
-        //{
-        //    this.korrektheitsGrad = 100;
-        //}
-        //else
-        //{
-        //    korrektheitsGrad = 0;
-        //}
-        // return this.GetKorrektheitsGrad();
-        return -1;
-    }
-
-    public void RemoveAntwort(string antwort)
-    {
-        // if (!StringValidator.Validate(antwort)) return;
-        // antworten.Remove(antwort);
+        throw new NotImplementedException();
     }
 }

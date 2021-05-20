@@ -29,9 +29,6 @@ public class QuizGUIManager : MonoBehaviour
     {
         foreach (KeyValuePair<int, QuizAufgabe.Antwort> entry in antwortMap)
         {
-            Debug.Log(entry.Key);
-            Debug.Log(entry.Value.ToString());
-            Debug.Log("-----------");
             antwortText[entry.Key].text = entry.Value.ToString();
         }
     }
@@ -49,7 +46,7 @@ public class QuizGUIManager : MonoBehaviour
 
         internal void ZeigeNeueFrage(QuizAufgabe neueAufgabe)
         {
-            neueAufgabe.SubscribeZuFrage(this);
+            neueAufgabe.frage.Subscribe(this);
         }
     }
 
@@ -66,7 +63,7 @@ public class QuizGUIManager : MonoBehaviour
 
         internal void ZeigeNeueAntworten(QuizAufgabe neueAufgabe)
         {
-            neueAufgabe.SubscribeZuAntworten(this);
+            neueAufgabe.antworten.Subscribe(this);
         }
     }
 }

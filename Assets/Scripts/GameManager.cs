@@ -23,12 +23,12 @@ public class GameManager : MonoBehaviour
     void StelleBeispielQuizAufgabe()
     {
         QuizAufgabe neueAufgabe = new QuizAufgabe();
-        neueAufgabe.SetFrage("Wie heiﬂt du?");
-        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Hans"));
-        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Silke"));
-        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Peter"));
-        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(false, "Vladimir"));
-        neueAufgabe.AddAntwort(new QuizAufgabe.Antwort(true, "Gaia"));
+        neueAufgabe.frage.Set("Wie heiﬂt du?");
+        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Hans"));
+        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Silke"));
+        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Peter"));
+        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Vladimir"));
+        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(true, "Gaia"));
         QuizGUIManager.ZeigeNeueAufgabe(neueAufgabe);
     }
 }
