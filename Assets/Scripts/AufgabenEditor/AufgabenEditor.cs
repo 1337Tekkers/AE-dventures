@@ -113,11 +113,11 @@ public class AufgabenEditor : MonoBehaviour
         quizAufgabe.SetFrage(frage);
         quizAufgabe.SetSchwierigkeitsgrad(schwierigkeitsgrad);
         quizAufgabe.SetTags(new string[] { "Test" });
-        quizAufgabe.AddAntwort(antwort1, richtig1);
-        quizAufgabe.AddAntwort(antwort2, richtig2);
-        quizAufgabe.AddAntwort(antwort3, richtig3);
-        quizAufgabe.AddAntwort(antwort4, richtig4);
-        quizAufgabe.AddAntwort(antwort5, richtig5);
+        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig1, antwort1));
+        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig2, antwort2));
+        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig3, antwort3));
+        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig4, antwort4));
+        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig5, antwort5));
 
         Debug.Log(quizAufgabe.GetFrage());
 

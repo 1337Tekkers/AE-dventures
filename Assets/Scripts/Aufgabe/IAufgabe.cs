@@ -1,5 +1,4 @@
-public interface IAufgabe<O, A>
-{
+public interface IAufgabe<O, A> {
     ESchwierigkeitsgrad GetSchwierigkeitsgrad();
 
     int Validiere(A antwort);
@@ -10,7 +9,7 @@ public interface IAufgabe<O, A>
 
     void SetFrage(string frage);
 
-    void AddAntwort(A antwort, bool richtig);
+    void AddAntwort(A antwort, int richtig);
 
     void RemoveAntwort(A antwort);
 
