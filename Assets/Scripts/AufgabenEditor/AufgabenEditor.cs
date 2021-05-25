@@ -20,11 +20,15 @@ public class AufgabenEditor : MonoBehaviour
     private bool richtig4;
     private bool richtig5;
 
+
     // Start is called before the first frame update
     void Start()
     {
         richtig1 = true;
         schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
+
+        
+
     }
 
     // Update is called once per frame
@@ -124,11 +128,6 @@ public class AufgabenEditor : MonoBehaviour
         AufgabeSpeichern(quizAufgabe);
 
         Debug.Log(Application.persistentDataPath);
-
-        foreach (var aufgabe in AlleAufgaben())
-        {
-            Debug.Log(aufgabe);
-        }
     }
 
     public void AufgabeSpeichern(QuizAufgabe quizAufgabe)
@@ -143,12 +142,12 @@ public class AufgabenEditor : MonoBehaviour
         File.WriteAllText(jsonSavePath, json);
     }
 
-    public IAufgabe<string[], string> AufgabeLaden(string path)
+    public static IAufgabe<string[], string> AufgabeLaden(string path)
     {
         return JsonConvert.DeserializeObject<QuizAufgabe>(File.ReadAllText(path));
     }
 
-    public List<string> AlleAufgaben()
+    public static List<string> AlleAufgaben()
     {
         string[] AufgabenDateien = Directory.GetFiles(Application.persistentDataPath + "/Aufgaben/");
         QuizAufgabe aufgabe;
