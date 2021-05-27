@@ -9,6 +9,7 @@ public class AufgabenEditor : MonoBehaviour
 {
     private string frage;
     private ESchwierigkeitsgrad schwierigkeitsgrad;
+    private string aufgabenTag;
     private string antwort1;
     private string antwort2;
     private string antwort3;
@@ -110,13 +111,18 @@ public class AufgabenEditor : MonoBehaviour
         schwierigkeitsgrad = ESchwierigkeitsgrad.SCHWIERIG;
     }
 
+    public void SetTag(string input)
+    {
+        aufgabenTag = input;
+    }
+
 
     public void AufgabeErstellen()
     {
         QuizAufgabe quizAufgabe = new QuizAufgabe();
         quizAufgabe.frage.Set(frage);
         quizAufgabe.schwierigkeitsgrad.Set(schwierigkeitsgrad);
-        quizAufgabe.tag.Set("Test");
+        quizAufgabe.tag.Set(aufgabenTag);
         quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig1, antwort1));
         quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig2, antwort2));
         quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig3, antwort3));
@@ -139,22 +145,4 @@ public class AufgabenEditor : MonoBehaviour
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + id + ".KWESTION";
         File.WriteAllText(jsonSavePath, json);
     }
-
-    // public static QuizAufgabe AufgabeLaden(string path)
-    // {
-    //     return JsonConvert.DeserializeObject<QuizAufgabe>(File.ReadAllText(path));
-    // }
-
-    // public static List<string> AlleAufgaben()
-    // {
-    //     string[] AufgabenDateien = Directory.GetFiles(Application.persistentDataPath + "/Aufgaben/");
-    //     QuizAufgabe aufgabe;
-    //     List<string> Aufgaben = new List<string>();
-    //     foreach (var datei in AufgabenDateien)
-    //     {
-    //         aufgabe = (QuizAufgabe)AufgabeLaden(datei);
-    //         Aufgaben.Add(aufgabe.frage.Subscribe(this));
-    //     }
-    //     return Aufgaben;
-    // }
 }
