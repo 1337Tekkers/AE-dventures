@@ -7,11 +7,13 @@ public class AufgabenListeHelper : MonoBehaviour
 {
     public List<string> aufgabenListe;
     public Text text;
+    AufgabenLoader aufgabenLoader;
     // Start is called before the first frame update
     void Start()
     {
+        this.aufgabenLoader = new AufgabenLoader();
         text = GameObject.Find("Canvas/Text").GetComponent<Text>();
-        aufgabenListe = AufgabenEditor.AlleAufgaben();
+        aufgabenListe = aufgabenLoader.AlleAufgaben();
 
 
         foreach (var aufgabe in aufgabenListe)

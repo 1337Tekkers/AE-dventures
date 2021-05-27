@@ -111,19 +111,17 @@ public class AufgabenEditor : MonoBehaviour
     }
 
 
-    public void Hello()
+    public void AufgabeErstellen()
     {
         QuizAufgabe quizAufgabe = new QuizAufgabe();
-        quizAufgabe.SetFrage(frage);
-        quizAufgabe.SetSchwierigkeitsgrad(schwierigkeitsgrad);
-        quizAufgabe.SetTags(new string[] { "Test" });
-        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig1, antwort1));
-        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig2, antwort2));
-        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig3, antwort3));
-        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig4, antwort4));
-        quizAufgabe.AddAntwort(new QuizAufgabe.Antwort(richtig5, antwort5));
-
-        Debug.Log(quizAufgabe.GetFrage());
+        quizAufgabe.frage.Set(frage);
+        quizAufgabe.schwierigkeitsgrad.Set(schwierigkeitsgrad);
+        quizAufgabe.tag.Set("Test");
+        quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig1, antwort1));
+        quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig2, antwort2));
+        quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig3, antwort3));
+        quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig4, antwort4));
+        quizAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(richtig5, antwort5));
 
         AufgabeSpeichern(quizAufgabe);
 
@@ -142,21 +140,21 @@ public class AufgabenEditor : MonoBehaviour
         File.WriteAllText(jsonSavePath, json);
     }
 
-    public static IAufgabe<string[], string> AufgabeLaden(string path)
-    {
-        return JsonConvert.DeserializeObject<QuizAufgabe>(File.ReadAllText(path));
-    }
+    // public static QuizAufgabe AufgabeLaden(string path)
+    // {
+    //     return JsonConvert.DeserializeObject<QuizAufgabe>(File.ReadAllText(path));
+    // }
 
-    public static List<string> AlleAufgaben()
-    {
-        string[] AufgabenDateien = Directory.GetFiles(Application.persistentDataPath + "/Aufgaben/");
-        QuizAufgabe aufgabe;
-        List<string> Aufgaben = new List<string>();
-        foreach (var datei in AufgabenDateien)
-        {
-            aufgabe = (QuizAufgabe)AufgabeLaden(datei);
-            Aufgaben.Add(aufgabe.GetFrage());
-        }
-        return Aufgaben;
-    }
+    // public static List<string> AlleAufgaben()
+    // {
+    //     string[] AufgabenDateien = Directory.GetFiles(Application.persistentDataPath + "/Aufgaben/");
+    //     QuizAufgabe aufgabe;
+    //     List<string> Aufgaben = new List<string>();
+    //     foreach (var datei in AufgabenDateien)
+    //     {
+    //         aufgabe = (QuizAufgabe)AufgabeLaden(datei);
+    //         Aufgaben.Add(aufgabe.frage.Subscribe(this));
+    //     }
+    //     return Aufgaben;
+    // }
 }

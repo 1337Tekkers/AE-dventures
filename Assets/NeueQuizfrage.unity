@@ -4727,7 +4727,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 570518210}
         m_TargetAssemblyTypeName: AufgabenEditor, Assembly-CSharp
-        m_MethodName: Hello
+        m_MethodName: AufgabeErstellen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
