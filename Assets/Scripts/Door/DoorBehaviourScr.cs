@@ -9,6 +9,7 @@ public class DoorBehaviourScr : MonoBehaviour, IObserver<bool>
 
     public int rotateSpeed;
     public float maxAngle;
+
     private float Rotation;
 
     private bool IsOpen = false;

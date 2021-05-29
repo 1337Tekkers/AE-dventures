@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8170282706701466996}
   - component: {fileID: 588187659725141132}
   - component: {fileID: 6808527960510805572}
+  - component: {fileID: -5082666133355213046}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,8 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac3475b1545f928439af8ac2df65a79d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QuizGUIManager: {fileID: 0}
-  player: {fileID: 0}
+  aufgabeManager: {fileID: 0}
 --- !u!114 &6808527960510805572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,3 +59,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+--- !u!114 &-5082666133355213046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3383608792827762042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b039c8b06ce6464e80c5ebd2d517a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuizGUIManager: {fileID: 0}
