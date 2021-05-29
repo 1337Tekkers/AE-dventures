@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class MemoryObservable<T> : IObservable<T>
 {
     private readonly List<IObserver<T>> observers = new List<IObserver<T>>();
+    [JsonProperty]
     protected T lastValue;
     public void Subscribe(IObserver<T> observer)
     {

@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class QuizAufgabe
 {
+    [JsonProperty]
     public readonly Frage frage = new Frage();
     public class Frage : MemoryObservable<string>
     {
@@ -14,6 +16,7 @@ public class QuizAufgabe
         }
     }
 
+    [JsonProperty]
     public readonly Antworten antworten = new Antworten();
     public class Antworten : MemoryObservable<Dictionary<int, Antwort>>
     {
@@ -45,7 +48,9 @@ public class QuizAufgabe
 
     public class Antwort
     {
+        [JsonProperty]
         private readonly bool correct;
+        [JsonProperty]
         private readonly String answer;
 
         public Antwort(bool correct, String answer)
@@ -65,6 +70,7 @@ public class QuizAufgabe
         }
     }
 
+    [JsonProperty]
     public readonly Schwierigkeitsgrad schwierigkeitsgrad = new Schwierigkeitsgrad();
     public class Schwierigkeitsgrad : MemoryObservable<ESchwierigkeitsgrad>
     {
@@ -74,6 +80,7 @@ public class QuizAufgabe
         }
     }
 
+    [JsonProperty]
     public readonly Tag tag = new Tag();
     public class Tag : MemoryObservable<string>
     {
