@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuizGUIManager: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &6808527960510805572
 MonoBehaviour:
   m_ObjectHideFlags: 0

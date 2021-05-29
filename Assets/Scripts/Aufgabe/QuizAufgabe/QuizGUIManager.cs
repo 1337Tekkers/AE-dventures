@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuizGUIManager : MonoBehaviour
+public class QuizGUIManager : MonoBehaviour, GUIElement
 {
     public Text frageText;
     public Text[] antwortText = new Text[5];
 
     private FrageGUIUpdater frageGUIUpdater;
     private AntwortGUIUpdater antwortGUIUpdater;
+
+    public Canvas canvas;
 
     private void Start()
     {
@@ -31,6 +33,16 @@ public class QuizGUIManager : MonoBehaviour
         {
             antwortText[entry.Key].text = entry.Value.ToString();
         }
+    }
+
+    public void Hide()
+    {
+        canvas.enabled = false;
+    }
+
+    public void Show()
+    {
+        canvas.enabled = true;
     }
 
     private class FrageGUIUpdater : IObserver<string>

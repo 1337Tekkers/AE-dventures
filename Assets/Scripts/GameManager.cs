@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public  QuizGUIManager QuizGUIManager;
+    public PlayerModellBehaviour player;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,14 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             StelleBeispielQuizAufgabe();
+        }
+        if (Input.GetKeyDown("h"))
+        {
+            QuizGUIManager.Hide();
+        }
+        if (Input.GetKeyDown("s"))
+        {
+            QuizGUIManager.Show();
         }
     }
 
