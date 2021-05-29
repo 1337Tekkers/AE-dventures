@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerModellBehaviour : MonoBehaviour
 {
     private Transform target;
-    private bool followTarget = false;
-    public readonly float maxMoveSpeed;
+    private bool followingTarget = false;
+    public float maxMoveSpeed;
     private float moveSpeed;
     public float accelerationRate;
 
@@ -21,7 +21,7 @@ public class PlayerModellBehaviour : MonoBehaviour
     void Update()
     {
         Turn();
-        if (followTarget)
+        if (followingTarget)
         {
             Accelerate();
             Move();
@@ -47,7 +47,7 @@ public class PlayerModellBehaviour : MonoBehaviour
 
     private void Decelerate()
     {
-        this.moveSpeed -= accelerationRate * Time.deltaTime;
+        moveSpeed -= accelerationRate * Time.deltaTime;
         if (moveSpeed < 0)
         {
             moveSpeed = 0;
@@ -56,11 +56,12 @@ public class PlayerModellBehaviour : MonoBehaviour
 
     private void Accelerate()
     {
-        this.moveSpeed += accelerationRate * Time.deltaTime;
+        moveSpeed += accelerationRate * Time.deltaTime;
         if (moveSpeed > maxMoveSpeed)
         {
             moveSpeed = maxMoveSpeed;
         }
+        Debug.Log(moveSpeed);
     }
 
     public void SetTarget(Transform target, bool follow = false)
@@ -71,6 +72,11 @@ public class PlayerModellBehaviour : MonoBehaviour
 
     public void FollowTarget(bool follow)
     {
-        followTarget = follow;
+        followingTarget = follow;
+    }
+
+    public bool isFollowingTarget()
+    {
+        return this.followingTarget;
     }
 }
