@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AufgabenauswahlScene.unity
     guid: fe0fca01cef7c8044a56d82fd07be68e
+  - enabled: 1
+    path: Assets/Scenes/MainGameScene.unity
+    guid: 321cd00634588314d8b96e33a7e3eea9
+  - enabled: 1
+    path: Assets/Scenes/AufgabenEditor/NeueQuizfrage.unity
+    guid: 06933fb3f4fd68d409a4cdc6a7e613ac
+  - enabled: 1
+    path: Assets/Scenes/AufgabenEditor/UebersichtFragen.unity
+    guid: a27bd25903fa3954da0505cbb2e8fe8c
   m_configObjects: {}
