@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class AufgabenEditor : MonoBehaviour
@@ -21,6 +22,8 @@ public class AufgabenEditor : MonoBehaviour
     private bool richtig4;
     private bool richtig5;
 
+    private Button saveButton;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,14 +31,36 @@ public class AufgabenEditor : MonoBehaviour
         richtig1 = true;
         schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
 
-        
-
+        saveButton = GameObject.Find("Speichern_Button").GetComponent<Button>();
+        Debug.Log(saveButton);
+        saveButton.interactable = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (checkInputs())
+        {
+            saveButton.interactable = true;
+        }
+        else {
+            saveButton.interactable = false;
+        }
+    }
 
+    public bool checkInputs()
+    {
+        if (!String.IsNullOrEmpty(frage) 
+        && !String.IsNullOrEmpty(aufgabenTag) 
+        && !String.IsNullOrEmpty(antwort1) 
+        && !String.IsNullOrEmpty(antwort2) 
+        && !String.IsNullOrEmpty(antwort3)
+        && !String.IsNullOrEmpty(antwort4)
+        && !String.IsNullOrEmpty(antwort5))
+        {
+            return true;
+        }
+        return false;
     }
 
     public void setFrage(string input)
@@ -96,19 +121,19 @@ public class AufgabenEditor : MonoBehaviour
     public void SetSchwierigkeitsgradEinfach(bool input)
     {
         if (input)
-        schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
+            schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
     }
 
     public void SetSchwierigkeitsgradMittel(bool input)
     {
         if (input)
-        schwierigkeitsgrad = ESchwierigkeitsgrad.MITTEL;
+            schwierigkeitsgrad = ESchwierigkeitsgrad.MITTEL;
     }
 
     public void SetSchwierigkeitsgradSchwierig(bool input)
     {
         if (input)
-        schwierigkeitsgrad = ESchwierigkeitsgrad.SCHWIERIG;
+            schwierigkeitsgrad = ESchwierigkeitsgrad.SCHWIERIG;
     }
 
     public void SetTag(string input)
