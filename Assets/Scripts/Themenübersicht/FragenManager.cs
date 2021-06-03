@@ -13,6 +13,7 @@ public class FragenManager : MonoBehaviour
 
     public Transform buttonPanel;
     public GameObject buttonPrefab;
+    public List<GameObject> buttonList;
 
     TagLoader tl = new TagLoader();
 
@@ -25,17 +26,19 @@ public class FragenManager : MonoBehaviour
     //Dynamisches Erstellen der Buttons anhand vorhandener Tags für die Themenauswahl
     void createButtonsForTags()
     {
+        int currentIndex = 0;
         List<string> totalTags;
 
         totalTags = tl.alleTags();
 
         foreach (var tag in totalTags)
         {
-            tagText = tag;
             GameObject button = Instantiate(buttonPrefab);
-            button.transform.SetParent(buttonPanel.transform);
-            button.GetComponent<Button>().onClick.AddListener(delegate{StartGame(tagText);});
-            button.transform.GetChild(0).GetComponent<Text>().text = tagText;
+            buttonList.Add(button);
+            buttonList[currentIndex].transform.SetParent(buttonPanel.transform);
+            buttonList[currentIndex].GetComponent<Button>().onClick.AddListener(delegate{StartGame(tag);});
+            buttonList[currentIndex].transform.GetChild(0).GetComponent<Text>().text = tag;
+            currentIndex++;
         }
     }
 
