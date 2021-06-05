@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 public class QuizAufgabe
 {
+
+    public string id;
+
     [JsonProperty]
     public readonly Frage frage = new Frage();
     public class Frage : MemoryObservable<string>

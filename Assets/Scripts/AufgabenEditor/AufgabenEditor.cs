@@ -32,7 +32,6 @@ public class AufgabenEditor : MonoBehaviour
         schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
 
         saveButton = GameObject.Find("Speichern_Button").GetComponent<Button>();
-        Debug.Log(saveButton);
         saveButton.interactable = false;
     }
 
@@ -61,6 +60,11 @@ public class AufgabenEditor : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void neueAufgabe() 
+    {
+        
     }
 
     public void setFrage(string input)
@@ -169,5 +173,6 @@ public class AufgabenEditor : MonoBehaviour
 
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + id + ".KWESTION";
         File.WriteAllText(jsonSavePath, json);
+
     }
 }

@@ -20,7 +20,7 @@ public class AufgabenLoader : IObserver<string>
         string[] AufgabenDateien = Directory.GetFiles(Application.persistentDataPath + "/Aufgaben/");
         foreach (var datei in AufgabenDateien)
         {
-            aufgabe = (QuizAufgabe)AufgabeLaden(datei);
+            aufgabe = AufgabeLaden(datei);
             aufgabe.frage.Subscribe(this);
         }
         return aufgaben;
