@@ -20,4 +20,9 @@ public class MenuHelper : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenuScene");
     }
+
+    public void FragenEditorMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
