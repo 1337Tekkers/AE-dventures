@@ -2072,6 +2072,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: decb206c7445a264a90d162a68653144, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frageInput: {fileID: 972982552}
+  tagInput: {fileID: 39237263}
+  antwort1Input: {fileID: 1957980242}
+  antwort2Input: {fileID: 380887771}
+  antwort3Input: {fileID: 180443032}
+  antwort4Input: {fileID: 405503617}
+  antwort5Input: {fileID: 773824040}
 --- !u!4 &570518211
 Transform:
   m_ObjectHideFlags: 0
@@ -2741,6 +2748,7 @@ GameObject:
   - component: {fileID: 754280052}
   - component: {fileID: 754280051}
   - component: {fileID: 754280050}
+  - component: {fileID: 754280053}
   m_Layer: 5
   m_Name: Neue Frage
   m_TagString: Untagged
@@ -2811,7 +2819,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 754280051}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 754280053}
+        m_TargetAssemblyTypeName: PanelHelper, Assembly-CSharp
+        m_MethodName: closePanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 570518210}
+        m_TargetAssemblyTypeName: AufgabenEditor, Assembly-CSharp
+        m_MethodName: neueAufgabe
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &754280051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2850,6 +2882,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 754280048}
   m_CullTransparentMesh: 1
+--- !u!114 &754280053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754280048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f5a523581c08b74f8e766240382cb45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel: {fileID: 1110211707}
 --- !u!1 &768864513
 GameObject:
   m_ObjectHideFlags: 0

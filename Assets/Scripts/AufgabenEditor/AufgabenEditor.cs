@@ -24,6 +24,14 @@ public class AufgabenEditor : MonoBehaviour
 
     private Button saveButton;
 
+    public InputField frageInput;
+    public InputField tagInput;
+    public InputField antwort1Input;
+    public InputField antwort2Input;
+    public InputField antwort3Input;
+    public InputField antwort4Input;
+    public InputField antwort5Input;
+
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +72,20 @@ public class AufgabenEditor : MonoBehaviour
 
     public void neueAufgabe() 
     {
-        
+        frageInput.text = "";
+        frage = "";
+        tagInput.text = "";
+        aufgabenTag = "";
+        antwort1Input.text = "";
+        antwort1 = "";
+        antwort2Input.text = "";
+        antwort2 = "";
+        antwort3Input.text = "";
+        antwort3 = "";
+        antwort4Input.text = "";
+        antwort4 = "";
+        antwort5Input.text = "";
+        antwort5 = "";
     }
 
     public void setFrage(string input)
