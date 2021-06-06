@@ -17,6 +17,6 @@ public class MainMenu : MonoBehaviour
 
     public void goToFrageneditor()
     {
-        SceneManager.LoadScene("Assets/Scenes/AufgabenEditor/UebersichtFragen.unity");
+        SceneManager.LoadScene("Assets/Scenes/AufgabenEditor/Menu.unity");
     }
 }
