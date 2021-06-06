@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class AufgabenEditor : MonoBehaviour
 {
+
+    private string id;
     private string frage;
     private ESchwierigkeitsgrad schwierigkeitsgrad;
     private string aufgabenTag;
@@ -21,6 +24,16 @@ public class AufgabenEditor : MonoBehaviour
     private bool richtig4;
     private bool richtig5;
 
+    private Button saveButton;
+
+    public InputField frageInput;
+    public InputField tagInput;
+    public InputField antwort1Input;
+    public InputField antwort2Input;
+    public InputField antwort3Input;
+    public InputField antwort4Input;
+    public InputField antwort5Input;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,14 +41,54 @@ public class AufgabenEditor : MonoBehaviour
         richtig1 = true;
         schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
 
-        
-
+        saveButton = GameObject.Find("Speichern_Button").GetComponent<Button>();
+        saveButton.interactable = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (checkInputs())
+        {
+            saveButton.interactable = true;
+        }
+        else
+        {
+            saveButton.interactable = false;
+        }
+    }
 
+    public bool checkInputs()
+    {
+        if (!String.IsNullOrEmpty(frage)
+        && !String.IsNullOrEmpty(aufgabenTag)
+        && !String.IsNullOrEmpty(antwort1)
+        && !String.IsNullOrEmpty(antwort2)
+        && !String.IsNullOrEmpty(antwort3)
+        && !String.IsNullOrEmpty(antwort4)
+        && !String.IsNullOrEmpty(antwort5))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void neueAufgabe()
+    {
+        frageInput.text = "";
+        frage = "";
+        tagInput.text = "";
+        aufgabenTag = "";
+        antwort1Input.text = "";
+        antwort1 = "";
+        antwort2Input.text = "";
+        antwort2 = "";
+        antwort3Input.text = "";
+        antwort3 = "";
+        antwort4Input.text = "";
+        antwort4 = "";
+        antwort5Input.text = "";
+        antwort5 = "";
     }
 
     public void setFrage(string input)
@@ -96,19 +149,19 @@ public class AufgabenEditor : MonoBehaviour
     public void SetSchwierigkeitsgradEinfach(bool input)
     {
         if (input)
-        schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
+            schwierigkeitsgrad = ESchwierigkeitsgrad.EINFACH;
     }
 
     public void SetSchwierigkeitsgradMittel(bool input)
     {
         if (input)
-        schwierigkeitsgrad = ESchwierigkeitsgrad.MITTEL;
+            schwierigkeitsgrad = ESchwierigkeitsgrad.MITTEL;
     }
 
     public void SetSchwierigkeitsgradSchwierig(bool input)
     {
         if (input)
-        schwierigkeitsgrad = ESchwierigkeitsgrad.SCHWIERIG;
+            schwierigkeitsgrad = ESchwierigkeitsgrad.SCHWIERIG;
     }
 
     public void SetTag(string input)
@@ -140,9 +193,19 @@ public class AufgabenEditor : MonoBehaviour
         string json = JsonConvert.SerializeObject(quizAufgabe);
         Debug.Log(json);
 
-        string id = Guid.NewGuid().ToString();
+        string id;
+        if (String.IsNullOrEmpty(this.id))
+        {
+            id = Guid.NewGuid().ToString();
+        }
+        else
+        {
+            id = this.id;
+        }
+
 
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + id + ".KWESTION";
         File.WriteAllText(jsonSavePath, json);
+
     }
 }

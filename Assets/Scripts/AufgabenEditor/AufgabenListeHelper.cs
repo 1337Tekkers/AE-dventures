@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AufgabenListeHelper : MonoBehaviour
+public class AufgabenListeHelper : IObserver<string>
 {
-    public List<string> aufgabenListe;
-    public Text text;
+    public List<QuizAufgabe> aufgabenListe;
+    List<string> aufgabenStellungen = new List<string>();
     AufgabenLoader aufgabenLoader;
+
+    public void Notify(string message) => aufgabenStellungen.Add(message);
     // Start is called before the first frame update
-    void Start()
+    public List<string> getAufgabenStellungen()
     {
         this.aufgabenLoader = new AufgabenLoader();
-        text = GameObject.Find("Canvas/Text").GetComponent<Text>();
         aufgabenListe = aufgabenLoader.AlleAufgaben();
 
 
         foreach (var aufgabe in aufgabenListe)
         {
-            Debug.Log(aufgabe);
-            text.text += aufgabe + "\n";
+            aufgabe.frage.Subscribe(this);
         }
+
+        foreach (var aufgabenStellung in aufgabenStellungen)
+        {
+            Debug.Log(aufgabenStellung);
+        }
+
+        return aufgabenStellungen;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

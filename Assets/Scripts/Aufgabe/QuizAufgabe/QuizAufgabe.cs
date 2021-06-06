@@ -4,13 +4,17 @@ using Newtonsoft.Json;
 
 public class QuizAufgabe
 {
+    [JsonIgnore]
+    public string ID { get; set; }
+
     [JsonProperty]
     public readonly Frage frage = new Frage();
     public class Frage : MemoryObservable<string>
     {
         public void Set(string neueFrage)
         {
-            if (StringValidator.Validate(neueFrage)) {
+            if (StringValidator.Validate(neueFrage))
+            {
                 this.NotifyAll(neueFrage);
             }
         }
