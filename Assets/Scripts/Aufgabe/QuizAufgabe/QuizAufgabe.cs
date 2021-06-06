@@ -4,8 +4,8 @@ using Newtonsoft.Json;
 
 public class QuizAufgabe
 {
-
-    public string id;
+    [JsonIgnore]
+    public string ID { get; set; }
 
     [JsonProperty]
     public readonly Frage frage = new Frage();
@@ -13,7 +13,8 @@ public class QuizAufgabe
     {
         public void Set(string neueFrage)
         {
-            if (StringValidator.Validate(neueFrage)) {
+            if (StringValidator.Validate(neueFrage))
+            {
                 this.NotifyAll(neueFrage);
             }
         }

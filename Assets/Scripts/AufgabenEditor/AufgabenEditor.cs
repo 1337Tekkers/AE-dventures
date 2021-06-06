@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 
 public class AufgabenEditor : MonoBehaviour
 {
+
+    private string id;
     private string frage;
     private ESchwierigkeitsgrad schwierigkeitsgrad;
     private string aufgabenTag;
@@ -50,17 +52,18 @@ public class AufgabenEditor : MonoBehaviour
         {
             saveButton.interactable = true;
         }
-        else {
+        else
+        {
             saveButton.interactable = false;
         }
     }
 
     public bool checkInputs()
     {
-        if (!String.IsNullOrEmpty(frage) 
-        && !String.IsNullOrEmpty(aufgabenTag) 
-        && !String.IsNullOrEmpty(antwort1) 
-        && !String.IsNullOrEmpty(antwort2) 
+        if (!String.IsNullOrEmpty(frage)
+        && !String.IsNullOrEmpty(aufgabenTag)
+        && !String.IsNullOrEmpty(antwort1)
+        && !String.IsNullOrEmpty(antwort2)
         && !String.IsNullOrEmpty(antwort3)
         && !String.IsNullOrEmpty(antwort4)
         && !String.IsNullOrEmpty(antwort5))
@@ -70,7 +73,7 @@ public class AufgabenEditor : MonoBehaviour
         return false;
     }
 
-    public void neueAufgabe() 
+    public void neueAufgabe()
     {
         frageInput.text = "";
         frage = "";
@@ -190,7 +193,16 @@ public class AufgabenEditor : MonoBehaviour
         string json = JsonConvert.SerializeObject(quizAufgabe);
         Debug.Log(json);
 
-        string id = Guid.NewGuid().ToString();
+        string id;
+        if (String.IsNullOrEmpty(this.id))
+        {
+            id = Guid.NewGuid().ToString();
+        }
+        else
+        {
+            id = this.id;
+        }
+
 
         string jsonSavePath = Application.persistentDataPath + "/Aufgaben/" + id + ".KWESTION";
         File.WriteAllText(jsonSavePath, json);
