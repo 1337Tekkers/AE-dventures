@@ -1,34 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public  QuizGUIManager QuizGUIManager;
+    public AufgabeManager aufgabeManager;
+    public Text tagText;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        tagText.text = StateNameController.tagText;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            StelleBeispielQuizAufgabe();
-        }
-    }
 
-    void StelleBeispielQuizAufgabe()
-    {
-        QuizAufgabe neueAufgabe = new QuizAufgabe();
-        neueAufgabe.frage.Set("Wie heiﬂt du?");
-        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Hans"));
-        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Silke"));
-        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Peter"));
-        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(false, "Vladimir"));
-        neueAufgabe.antworten.AddAntwort(new QuizAufgabe.Antwort(true, "Gaia"));
-        QuizGUIManager.ZeigeNeueAufgabe(neueAufgabe);
     }
 }
